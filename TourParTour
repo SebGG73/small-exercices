@@ -1,0 +1,336 @@
+# programme.py
+import random
+
+print("Bienvenu dans se jeu au tour par tour, \n choix de 2 personnages avec tous 4 attaques differentes")
+liste="0"
+selection1,selection2="0","0"
+vie1, vie2=0, 0
+attack1,attack2=0,0
+degats1, degats2=0,0
+
+listePaladin={"Poing Lumière":1, "Soin":2,"Flamme Sacré":3,"Jugement":4 }
+listeGuerrier={"Frappe":1, "Souffrance":2,"Barricade":3,"Punition":4 }
+#listeArcher={"Critique":1, "Fleche de feu":2,"Evasion":3,"Dague":4 }
+#listeMage={"Boule de feu":1, "Bouclier":2, "Cataclysme":3,"Vague":4 }
+
+def Joueur1():     #Selection de personnage J1
+  global selection1
+  print("\n ---------------------------------------------------------\n Joueur1 à vous de choisir votre personnage ! Paladin / Guerrier ")
+  selection1=str(input("\n Choisissez : "))
+  selection1=(selection1.lower())
+  
+  print(" \n ---------------------------------------------------------\n")
+  while True:
+      try:
+        selection1 = str(selection1)
+      except ValueError:
+        print("\n Erreur : \n  Vous n'avez pas entré un nom correct \n ") 
+        continue
+ 
+      if selection1=="paladin" or selection1=="guerrier":
+        print(f"Joueur1 a choisit {(selection1.upper())}")
+        break
+      else :
+        selection1=str(input("\n Veuillez rentrer soit: Paladin / Guerrier \n"))
+def Joueur2():    #Selection de personnage J2
+  global selection2
+  print("\n ---------------------------------------------------------\n Joueur2 à vous de choisir votre personnage ! Paladin / Guerrier ")
+  selection2=str(input("\n Choisissez : "))
+  selection2=(selection2.lower())
+
+  while True:
+      try:
+        selection2 = str(selection2)
+        
+      except ValueError:
+        print("\n Erreur : \n  Vous n'avez pas entré un nom correct \n ") 
+        continue
+ 
+      if selection2=="paladin" or selection2=="guerrier":
+        print(f"\n Joueur2 à choisit {(selection2.upper())} \n ---------------------------------------------------------\n \n")
+        break
+      else :
+        selection2=str(input("\n Veuillez rentrer soit: Paladin / Guerrier \n"))
+def PV1():
+  global vie1
+  global selection1
+  if selection1=="paladin":
+    vie1=40
+  elif selection1=="guerrier":
+    vie1=55
+def PV2():
+  global vie2
+  global selection2
+  if selection2=="paladin":
+    vie2=40
+  elif selection2=="guerrier":
+    vie2=55
+def Tour1():   #Tour du J1
+  global selection1
+  global attack1
+  print("Tour du Joueur1 : Que faire ? \n")
+  if selection1=="paladin":
+    print(listePaladin)
+  elif selection1=="guerrier":
+    print(listeGuerrier)
+
+  attack1=input("\n Quel sort utiliser: Noter le numéro : ")
+  while True:
+      try:
+        attack1 = int(attack1)
+      except ValueError:
+        print("\n Erreur : \n  Vous n'avez pas entré un nombre entier \n ") 
+        continue
+ 
+      if attack1>0 or attack1<5:
+        break
+      else :
+        print("\n Erreur : \n  Vous avez entré un réél négatif ou différent de 1 à 4 \n")
+  if selection1=="paladin":
+      Paladinskills1()
+  elif selection1=="guerrier":
+      Guerrierskills1()
+ 
+
+
+def Tour2():    #Tour du J2
+  global selection2
+  global attack2
+  print("Tour du Joueur2 : Que faire ? \n")
+  if selection2=="paladin":
+    print(listePaladin)
+  else:
+    print(listeGuerrier)
+
+  attack2=input("\n Quel sort utiliser: Noter le numéro : ")
+  while True:
+      try:
+        attack2 = int(attack2)
+      except ValueError:
+        print("\n Erreur : \n  Vous n'avez pas entré un nombre entier \n ") 
+        continue
+ 
+      if attack2>0 or attack2<5:
+        break
+      else :
+        print("\n Erreur : \n  Vous avez entré un réél négatif ou différent de 1 à 4 \n")
+  if selection2=="paladin":
+      Paladinskills2()
+  else :
+      Guerrierskills2()
+
+
+
+def Paladinskills1():
+  global degats1
+  global attack1
+  global vie2
+  global vie1
+  
+  if attack1==1:
+   print("Attaque Poing de lumière !")
+   degats1=4
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1
+ 
+  elif attack1==2:
+   print("Joueur1 se soigne !")
+   degats1=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] Le soin fait un coup critique ! \n")
+   print(f"Vous étes soigné de : {degats1}")
+   vie1=vie1+degats1
+   
+  elif attack1==3:
+   print("Attaque Flamme sacrée !")
+   degats1=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1
+   
+  else :
+   print("Attaque Jugement !")
+   degats1=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1
+    
+  print(f"Il reste {vie2} points de vie au Joueur2 \n")
+  print("\n ---------------------------------------------------------\n")
+
+def Paladinskills2():
+ global degats2
+ global attack2
+ global vie1
+ global vie2
+ if attack2==1:
+   print("Attaque Poing de lumière !")
+   degats2=4
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+   vie1=vie1-degats2
+  
+ elif attack2==2:
+   print("Joueur1 se soigne !")
+   degats2=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"Vous étes soigné de : {degats2}")
+   vie2=vie2+degats2
+  
+ elif attack2==3:
+   print("Attaque Flamme sacrée !")
+   degats2=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+   vie1=vie1-degats2
+   
+ else :
+   print("Attaque Jugement !")
+   degats2=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+   vie1=vie1-degats2
+ print(f"Il reste {vie1} points de vie au Joueur1 \n")  
+ print("\n ---------------------------------------------------------\n")
+def Guerrierskills1():
+ global degats1
+ global attack1
+ global vie2
+ if attack1==1:
+   print("Attaque Frappe !")
+   degats1=4
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1
+  
+ elif attack1==2:
+   print("Souffrance !")
+   degats1=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"inflige {degats1}")
+   vie2=vie2-degats1
+   
+ elif attack1==3:
+   print("Attaque Barricade !")
+   degats1=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1
+   
+ else :
+   print("Attaque Punition !")
+   degats1=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats1=degats1*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats1}")
+   vie2=vie2-degats1  
+ print(f"Il reste {vie2} points de vie au Joueur2 \n")  
+ print("\n ---------------------------------------------------------\n")
+def Guerrierskills2():
+ global degats2
+ global attack2
+ global vie1
+ 
+ if attack2==1:
+   print("Attaque Frappe !")
+   degats2=4
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+
+   vie1=vie1-degats2
+   
+ elif attack2==2:
+   print("Souffrance !")
+   degats2=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"inflige {degats2}")
+   vie1=vie1-degats2
+  
+ elif attack2==3:
+   print("Attaque Barricade !")
+   degats2=3
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+   vie1=vie1-degats2
+   
+ else :
+   print("Attaque Punition !")
+   degats2=5
+   critique=random.randint(0, 100)
+   if critique>80:
+     degats2=degats2*2
+     print("[Critique] L'attaque fait un coup critique ! \n")
+   print(f"L'attaque inflige {degats2}")
+   vie1=vie1-degats2
+   
+ print(f"Il reste {vie1} points de vie au Joueur1 \n")  
+ print("\n ---------------------------------------------------------\n")
+
+
+def jeu():
+  Joueur1()
+  Joueur2()
+  PV1()
+  PV2()
+  while vie1>0 and vie2>0:
+      Tour1()
+      Tour2()
+  reload()
+def reload():
+  if vie1>vie2:
+    print("Le Joueur1 gagne la partie")
+  else:
+    print("Le Joueur2 gagne la partie \n")
+  print("Voulez-vous rejouer ? :\n")
+  rejouer=str(input("Rejouer Oui / Non ? : "))
+  rejouer=(rejouer.lower())
+  if rejouer=="oui":
+    jeu()
+  else:
+    print("Merci d'avoir joué !")
+jeu()
+
